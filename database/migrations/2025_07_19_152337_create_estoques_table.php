@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("pais_origem");
             $table->integer("tamanho");
             $table->string("unidade_medida", 2);
-            $table->foreignId('produto_id')->constrained('produtos')->onDelete('cascade');
+            $table->foreignId('variacao_produto_id')->constrained('variacao_produtos')->onDelete('cascade');
             $table->timestamps();
         });
     }

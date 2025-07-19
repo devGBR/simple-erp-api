@@ -10,7 +10,7 @@ done
 composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Roda migrations (ajuste para sua lógica real)
-php artisan migrate --force --seed
+php artisan migrate:refresh --force --seed
 
 # Opcional: cache
 php artisan config:cache

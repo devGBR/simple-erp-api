@@ -17,8 +17,6 @@ return new class extends Migration
             $table->decimal("preco",8,2);
             $table->decimal("preco_promocao", 8,2)->default(0);
             $table->text('descricao');
-            $table->string("tamanho")->nullable();
-            $table->string("cor")->nullable();
             $table->timestamps();
         });
     }

@@ -1,7 +1,7 @@
 FROM php:8.2-fpm
 
 # Instala extensões do sistema e PHP necessárias
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y default-mysql-client \
     git curl zip unzip libzip-dev libpng-dev libonig-dev libxml2-dev \
     && docker-php-ext-install pdo pdo_mysql zip gd
 
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
 # Define diretório de trabalho
-WORKDIR /var/www/html
+WORKDIR /var/www/
 
 RUN echo "Conteúdo do /var/www/html:"
 RUN ls -la /var/www/html
@@ -21,12 +21,12 @@ COPY . .
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Garante permissões corretas
-RUN chown -R www-data:www-data /var/www \
+RUN chown -R www-data:www-data /var/www/ \
     && chmod -R 755 /var/www/storage
 
 # Copia entrypoint e garante permissão
 
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY ../docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Expõe a porta do Laravel
